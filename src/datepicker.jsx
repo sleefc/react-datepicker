@@ -74,7 +74,8 @@ var DatePicker = React.createClass({
     title: React.PropTypes.string,
     todayButton: React.PropTypes.string,
     utcOffset: React.PropTypes.number,
-    withPortal: React.PropTypes.bool
+    withPortal: React.PropTypes.bool,
+    inputProps: React.PropTypes.object,
   },
 
   getDefaultProps () {
@@ -98,7 +99,8 @@ var DatePicker = React.createClass({
       ],
       utcOffset: moment().utcOffset(),
       monthsShown: 1,
-      withPortal: false
+      withPortal: false,
+      inputProps: {}
     }
   },
 
@@ -299,33 +301,38 @@ var DatePicker = React.createClass({
     var className = classnames(this.props.className, {
       [outsideClickIgnoreClass]: this.state.open
     })
-    return <DateInput
-        ref="input"
-        id={this.props.id}
-        name={this.props.name}
-        autoFocus={this.props.autoFocus}
-        date={this.props.selected}
-        locale={this.props.locale}
-        minDate={this.props.minDate}
-        maxDate={this.props.maxDate}
-        excludeDates={this.props.excludeDates}
-        includeDates={this.props.includeDates}
-        filterDate={this.props.filterDate}
-        dateFormat={this.props.dateFormat}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
-        onClick={this.onInputClick}
-        onKeyDown={this.onInputKeyDown}
-        onChangeDate={this.setSelected}
-        placeholder={this.props.placeholderText}
-        disabled={this.props.disabled}
-        autoComplete={this.props.autoComplete}
-        className={className}
-        title={this.props.title}
-        readOnly={this.props.readOnly}
-        required={this.props.required}
-        tabIndex={this.props.tabIndex}
-        customInput={this.props.customInput} />
+
+    const inputProps = Object.assign({}, this.props.inputProps, {
+            id: this.props.id,
+            name: this.props.name,
+            autoFocus: this.props.autoFocus,
+            date: this.props.selected,
+            locale: this.props.locale,
+            minDate: this.props.minDate,
+            maxDate: this.props.maxDate,
+            excludeDates: this.props.excludeDates,
+            includeDates: this.props.includeDates,
+            filterDate: this.props.filterDate,
+            dateFormat: this.props.dateFormat,
+            onFocus: this.handleFocus,
+            onBlur: this.handleBlur,
+            onClick: this.onInputClick,
+            onKeyDown: this.onInputKeyDown,
+            onChangeDate: this.setSelected,
+            placeholder: this.props.placeholderText,
+            disabled: this.props.disabled,
+            autoComplete: this.props.autoComplete,
+            title: this.props.title,
+            readOnly: this.props.readOnly,
+            required: this.props.required,
+            tabIndex: this.props.tabIndex,
+            customInput: this.props.customInput
+        });
+
+    return <DateInput {...inputProps}
+              ref="input"
+              className={className}
+           />
   },
 
   renderClearButton () {
