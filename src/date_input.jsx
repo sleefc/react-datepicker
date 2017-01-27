@@ -100,7 +100,7 @@ var DateInput = React.createClass({
       })
     }
 
-    return <input {...props}
+    return <input {...this.props}
         ref="input"
         type="text"
         {...rest}
